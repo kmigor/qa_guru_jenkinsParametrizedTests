@@ -36,7 +36,7 @@ public class RandomDataGenerator {
     }
 
     public String getRandomMonth() {
-        Month month = Month.of(dateOfBirth.getMonth());
+        Month month = Month.of(dateOfBirth.getMonth()+1);
         return month.getDisplayName(TextStyle.FULL, Locale.ENGLISH);
     }
 
