@@ -1,10 +1,11 @@
 package tests;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import utils.RandomDataGenerator;
 
-
+@DisplayName("Тест регистрации")
 public class AutomationPracticeFormWithPageObjectTests extends TestBase {
 
     private final RegistrationPage registrationPage = new RegistrationPage();
@@ -39,6 +40,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
 
 
     @Test
+    @DisplayName("Позитивный тест регистрации")
     void successfulRegistrationWithFullDataTest() {
 
         String firstName = randomDataGenerator.getRandomFirstName();
@@ -84,6 +86,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Позитивный тест регистрации с минимальными данными")
     void successfulRegistrationWithRequiredFieldsTest() {
         String firstName = randomDataGenerator.getRandomFirstName();
         String lastName = randomDataGenerator.getRandomLastName();
@@ -105,6 +108,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
     }
 
     @Test
+    @DisplayName("Негативный тест регистрации")
     void negativeRegistrationTest() {
         registrationPage.openPage()
                 .removeBanner()
