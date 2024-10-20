@@ -1,5 +1,6 @@
 package pages;
 
+import com.codeborne.selenide.Configuration;
 import com.codeborne.selenide.SelenideElement;
 import pages.components.CalendarComponent;
 import pages.components.ResultTable;
@@ -37,37 +38,38 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setFirstName(String value) {
-        firstNameInput.setValue(value);
+        firstNameInput.scrollTo().setValue(value);
         return this;
     }
 
     public RegistrationPage setLastName(String value) {
-        lastNameInput.setValue(value);
+        lastNameInput.scrollTo().setValue(value);
         return this;
     }
 
     public RegistrationPage setUserEmail(String value) {
-        userEmailInput.setValue(value);
+        userEmailInput.scrollTo().setValue(value);
         return this;
     }
 
     public RegistrationPage setGender(String value) {
-        genderInput.$(byText(value)).click();
+        genderInput.scrollTo().$(byText(value)).click();
         return this;
     }
 
     public RegistrationPage setUserNumber(String value) {
-        userNumberInput.setValue(value);
+        userNumberInput.scrollTo().setValue(value);
         return this;
     }
 
     public RegistrationPage setDateOfBirth(String day, String month, String year) {
-        dateOfBirth.click();
+        dateOfBirth.scrollTo().click();
         new CalendarComponent().setDate(day, month, year);
         return this;
     }
 
     public RegistrationPage setSubjects(String[] values) {
+        subjectsInput.scrollTo();
         for (String value : values) {
             subjectsInput.setValue(value).pressEnter();
         }
@@ -75,6 +77,7 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setHobbies(String[] values) {
+        hobbiesInput.scrollTo();
         for (String value : values) {
             hobbiesInput.$(byText(value)).click();
         }
@@ -82,26 +85,27 @@ public class RegistrationPage {
     }
 
     public RegistrationPage setPicture(String value) {
-        pictureInput.uploadFromClasspath(value);
+        if (Configuration.browser.equals("firefox")) return this;
+        pictureInput.scrollTo().uploadFromClasspath(value);
         return this;
     }
 
     public RegistrationPage setCurrentAddress(String value) {
-        addressCurrentInput.setValue(value);
+        addressCurrentInput.scrollTo().setValue(value);
         return this;
     }
 
     public RegistrationPage setStateAndCity(String[] stateAndCityArray) {
-        stateInput.click();
+        stateInput.scrollTo().click();
         stateCityWrapper.$(byText(stateAndCityArray[0])).click();
-        cityInput.click();
+        cityInput.scrollTo().click();
         stateCityWrapper.$(byText(stateAndCityArray[1])).click();
         return this;
     }
 
 
     public void clickSubmit() {
-        submitInput.click();
+        submitInput.scrollTo().click();
     }
 
     public RegistrationPage checkResult(String key, String value) {
