@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import pages.RegistrationPage;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
 import static io.qameta.allure.Allure.step;
@@ -46,8 +47,10 @@ public class TestBase {
     @AfterEach
     void addAttachments(){
         Attach.screenshotAs("LastScreenshot");
-        Attach.pageSource();
-        Attach.browserConsoleLogs();
+        if (!Objects.equals(Configuration.browser, "firefox")) {
+            Attach.pageSource();
+            Attach.browserConsoleLogs();
+        }
         Attach.addVideo();
         closeWebDriver();
     }
