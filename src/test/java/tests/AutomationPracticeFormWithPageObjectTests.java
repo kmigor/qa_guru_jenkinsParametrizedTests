@@ -36,6 +36,8 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
             {"Jaipur", "Jaiselmer"}
     };
 
+
+
     @Test
     void successfulRegistrationWithFullDataTest() {
 
