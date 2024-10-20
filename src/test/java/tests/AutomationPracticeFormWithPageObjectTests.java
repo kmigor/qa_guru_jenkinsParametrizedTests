@@ -59,7 +59,9 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
         String currentAddress = randomDataGenerator.getRandomAddress();
         String[] stateAndCity = randomDataGenerator.getRandomStateAndCity(states, cities);
 
-        registrationPage.setFirstName(firstName)
+        registrationPage.openPage()
+                .removeBanner()
+                .setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(userEmail)
                 .setGender(gender)
@@ -95,7 +97,9 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
         String gender = randomDataGenerator.getRandomGender(genders);;
         String phoneNumber = randomDataGenerator.getRandomPhoneNumber();
 
-        registrationPage.setFirstName(firstName)
+        registrationPage.openPage()
+                .removeBanner()
+                .setFirstName(firstName)
                 .setLastName(lastName)
                 .setGender(gender)
                 .setUserNumber(phoneNumber)
@@ -110,7 +114,9 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
     @Test
     @DisplayName("Негативный тест регистрации")
     void negativeRegistrationTest() {
-        registrationPage.clickSubmit();
+        registrationPage.openPage()
+                .removeBanner()
+                .clickSubmit();
 
         registrationPage.negativeCheck();
     }

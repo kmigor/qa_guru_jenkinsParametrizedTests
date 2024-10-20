@@ -33,17 +33,6 @@ public class TestBase {
         Configuration.browserCapabilities = capabilities;
     }
 
-    @BeforeEach
-    protected void doBeforeEach() {
-        step("Открываем форму", () -> {
-            registrationPage.openPage();
-        });
-
-        step("Удаляем баннеры", () -> {
-            registrationPage.removeBanner();
-        });
-    }
-
     @AfterEach
     void addAttachments(){
         Attach.screenshotAs("LastScreenshot");
