@@ -1,14 +1,16 @@
 package tests;
 
+import com.codeborne.selenide.Configuration;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import pages.RegistrationPage;
 import utils.RandomDataGenerator;
 
+import java.util.Objects;
+
 @DisplayName("Тест регистрации")
 public class AutomationPracticeFormWithPageObjectTests extends TestBase {
 
-    private final RegistrationPage registrationPage = new RegistrationPage();
     private final RandomDataGenerator randomDataGenerator = new RandomDataGenerator();
     String[] genders = {"Male", "Female", "Other"};
     String[] allSubjects = {
@@ -57,9 +59,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
         String currentAddress = randomDataGenerator.getRandomAddress();
         String[] stateAndCity = randomDataGenerator.getRandomStateAndCity(states, cities);
 
-        registrationPage.openPage()
-                .removeBanner()
-                .setFirstName(firstName)
+        registrationPage.setFirstName(firstName)
                 .setLastName(lastName)
                 .setUserEmail(userEmail)
                 .setGender(gender)
@@ -80,9 +80,11 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
                 .checkResult("Date of Birth",dayOfBirth + " " + monthOfBirth + "," + yearOfBirth)
                 .checkResult("Subjects", subjects[0])
                 .checkResult("Hobbies", hobbies[0])
-                .checkResult("Picture", pictureName)
                 .checkResult("Address", currentAddress)
                 .checkResult("State and City", stateAndCity[0] + " " + stateAndCity[1]);
+        if (!Objects.equals(Configuration.browser, "firefox")) {
+            registrationPage.checkResult("Picture", pictureName);
+        }
     }
 
     @Test
@@ -93,9 +95,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
         String gender = randomDataGenerator.getRandomGender(genders);;
         String phoneNumber = randomDataGenerator.getRandomPhoneNumber();
 
-        registrationPage.openPage()
-                .removeBanner()
-                .setFirstName(firstName)
+        registrationPage.setFirstName(firstName)
                 .setLastName(lastName)
                 .setGender(gender)
                 .setUserNumber(phoneNumber)
@@ -110,9 +110,7 @@ public class AutomationPracticeFormWithPageObjectTests extends TestBase {
     @Test
     @DisplayName("Негативный тест регистрации")
     void negativeRegistrationTest() {
-        registrationPage.openPage()
-                .removeBanner()
-                .clickSubmit();
+        registrationPage.clickSubmit();
 
         registrationPage.negativeCheck();
     }

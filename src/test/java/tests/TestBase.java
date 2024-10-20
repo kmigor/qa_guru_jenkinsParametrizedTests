@@ -4,13 +4,17 @@ import com.codeborne.selenide.Configuration;
 import helpers.Attach;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import pages.RegistrationPage;
 
 import java.util.Map;
 
 import static com.codeborne.selenide.Selenide.closeWebDriver;
+import static io.qameta.allure.Allure.step;
 
 public class TestBase {
+    RegistrationPage registrationPage = new RegistrationPage();
     @BeforeAll
     static void beforeAll() {
         Configuration.browserSize = System.getProperty("browserSize");
@@ -26,6 +30,17 @@ public class TestBase {
                 "enableVideo", true
         ));
         Configuration.browserCapabilities = capabilities;
+    }
+
+    @BeforeEach
+    protected void doBeforeEach() {
+        step("Открываем форму", () -> {
+            registrationPage.openPage();
+        });
+
+        step("Удаляем баннеры", () -> {
+            registrationPage.removeBanner();
+        });
     }
 
     @AfterEach
